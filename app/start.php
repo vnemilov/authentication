@@ -2,6 +2,9 @@
 
 //import namespaces 
 use Slim\Slim;
+use Slim\Views\Twig;
+use Slim\Views\TwigExtension;
+
 use Noodlehaus\Config;
 
 //include the User model which we created
@@ -24,7 +27,9 @@ require INC_ROOT . '/vendor/autoload.php';
 //$app serves as our entire application
 $app = new Slim([
 //reading the mode.php file
-	'mode' => file_get_contents(INC_ROOT . '/mode.php')
+	'mode' => file_get_contents(INC_ROOT . '/mode.php'),
+	'view' => new Twig(),
+	'templates.path' => INC_ROOT . '/app/views'
 	]);
 //setting the mode of the application
 $app->configureMode($app->config('mode'), function() use ($app){
@@ -35,8 +40,18 @@ $app->configureMode($app->config('mode'), function() use ($app){
 /*echo $app->config->get('db.driver');*/
 
 require 'database.php';
-
+require 'routes.php';
 //set our user model in our container it's accessed by $app->user
 $app->container->set('user', function(){
 	return new User;
 });
+
+$view = $app->view();
+
+$view->parserOptions = [
+'debug'=> $app->config->get('twig.debug')
+];
+
+$view->parserExtensions = [
+new TwigExtension
+];
