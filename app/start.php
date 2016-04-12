@@ -10,6 +10,7 @@ use Noodlehaus\Config;
 //include the User model which we created
 use Codecourse\User\User;
 use Codecourse\Helpers\Hash;
+use Codecourse\Validation\Validator;
 
 //Start the session
 session_cache_limiter(false);
@@ -48,6 +49,10 @@ $app->container->set('user', function(){
 
 $app->container->singleton('hash', function() use ($app){
 	return new Hash($app->config);
+});
+
+$app->container->singleton('validation', function() use ($app){
+	return new Validator;
 });
 
 $view = $app->view();
