@@ -22,5 +22,5 @@ Videos playlist - https://www.youtube.com/playlist?list=PLfdtiltiRHWGKUvioJly40R
 			}
 	}
 
-3. Setting Up
-
+In composer.json after we create the autoload we need to run this command in the root directory of our app
+php composer.phar dump-autoload -o

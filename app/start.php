@@ -4,6 +4,9 @@
 use Slim\Slim;
 use Noodlehaus\Config;
 
+//include the User model which we created
+use Codecourse\User\User;
+
 
 //Start the session
 session_cache_limiter(false);
@@ -33,6 +36,7 @@ $app->configureMode($app->config('mode'), function() use ($app){
 
 require 'database.php';
 
-
-
-?>
+//set our user model in our container it's accessed by $app->user
+$app->container->set('user', function(){
+	return new User;
+});
