@@ -11,7 +11,7 @@ $capsule->addConnection([
 	'username' => $app->config->get('db.username'),
 	'password' => $app->config->get('db.password'),
 	'charset' => $app->config->get('db.charset'),
-	'colaltion' => $app->config->get('db.collation'),
+	'collation' => $app->config->get('db.collation'),
 	'prefix' => $app->config->get('db.prefix')
 	]);
 
