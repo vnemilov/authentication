@@ -31,7 +31,7 @@ $app->configureMode($app->config('mode'), function() use ($app){
 //example of using the configs from the loaded mode
 /*echo $app->config->get('db.driver');*/
 
-
+require 'database.php';
 
 
 
