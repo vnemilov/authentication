@@ -9,7 +9,7 @@ use Noodlehaus\Config;
 
 //include the User model which we created
 use Codecourse\User\User;
-
+use Codecourse\Helpers\Hash;
 
 //Start the session
 session_cache_limiter(false);
@@ -46,6 +46,10 @@ $app->container->set('user', function(){
 	return new User;
 });
 
+$app->container->singleton('hash', function() use ($app){
+	return new Hash($app->config);
+});
+
 $view = $app->view();
 
 $view->parserOptions = [
@@ -55,3 +59,10 @@ $view->parserOptions = [
 $view->parserExtensions = [
 new TwigExtension
 ];
+
+
+
+// testing the hashing
+/*$password = 'ilovecats';
+$hash = '$2y$10$HUbuWaiSguV2B9dHCnrl0uQAUhtqVi7agZBh3sicaOzEFEcruBPIW';
+var_dump($app->hash->passwordCheck($password, $hash));*/
