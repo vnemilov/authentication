@@ -12,6 +12,8 @@ use Codecourse\User\User;
 use Codecourse\Helpers\Hash;
 use Codecourse\Validation\Validator;
 
+use Codecourse\Middleware\BeforeMiddleware;
+
 //Start the session
 session_cache_limiter(false);
 session_start();
@@ -32,6 +34,8 @@ $app = new Slim([
 	'view' => new Twig(),
 	'templates.path' => INC_ROOT . '/app/views'
 	]);
+
+$app->add(new BeforeMiddleware);
 //setting the mode of the application
 $app->configureMode($app->config('mode'), function() use ($app){
 	$app->config = Config::load(INC_ROOT . "/app/config/{$app->mode}.php");
@@ -42,6 +46,9 @@ $app->configureMode($app->config('mode'), function() use ($app){
 
 require 'database.php';
 require 'routes.php';
+
+$app->auth = false;
+
 //set our user model in our container it's accessed by $app->user
 $app->container->set('user', function(){
 	return new User;
@@ -64,7 +71,6 @@ $view->parserOptions = [
 $view->parserExtensions = [
 new TwigExtension
 ];
-
 
 
 // testing the hashing
