@@ -14,14 +14,14 @@ $app->post('/register', function() use ($app){
 
 	$v = $app->validation;
 	$v->validate([
-		'email' => [$email, 'required|email'],
-		'username' => [$username, 'required|alnumDash'],
+		'email' => [$email, 'required|email|uniqueEmail'],
+		'username' => [$username, 'required|alnumDash|max(20)|uniqueUsername'],
 		'password' => [$password, 'required|min(6)'],
 		'password_confirm' => [$passwordConfirm, 'required|matches(password)'],
 
 		]);
 	if($v->passes()){
-		
+
 		$app->user->create([
 			'email' => $email,
 			'username' => $username,
