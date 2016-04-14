@@ -29,7 +29,7 @@ return [
 		'smtp_auth' => true,
 		'smtp_secure' => 'tls',
 		'host' => 'smtp.gmail.com',
-		'username' => 'vasil.n.emilov@gmail.com',
+		'username' => 'vasilnemilov@gmail.com',
 		'password' => 'sk!pp3r.vasil',
 		'port' => 587,
 		'html' => true
